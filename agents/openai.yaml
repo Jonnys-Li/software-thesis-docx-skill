@@ -1,0 +1,4 @@
+interface:
+  display_name: "Software Thesis DOCX"
+  short_description: "把软件仓库整理成毕业论文 DOCX 的可复用开源技能"
+  default_prompt: "Use $software-thesis-docx to generate or refine a software thesis DOCX workflow from a software project repository."

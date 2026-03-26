@@ -1,0 +1,12 @@
+[
+  {
+    "caption": "图4-1 系统总体架构图",
+    "image_path": "./figures/01_system_overview.png",
+    "fit_mode": "original_box"
+  },
+  {
+    "caption": "图5-2 关键流程图",
+    "image_path": "./figures/05_flow.png",
+    "fit_mode": "page_width"
+  }
+]

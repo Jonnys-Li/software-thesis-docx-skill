@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "document_label": "毕业论文",
+    "title_cn": "基于软件项目仓库的毕业论文自动整理与文档生成示例",
+    "title_en": "Example Workflow for Building a Graduation Thesis DOCX from a Software Repository",
+    "student_name": "________________",
+    "student_id": "________________",
+    "major": "________________",
+    "college": "________________",
+    "advisor": "________________",
+    "date_cn": "2026年3月",
+    "abstract_cn": [
+      "本示例展示如何把软件项目仓库中的结构、功能、图表和测试信息整理为可构建的毕业论文文档输入。",
+      "核心思想是先抽取仓库事实，再通过结构化 manifest 驱动 DOCX 构建，从而把内容与排版解耦。"
+    ],
+    "abstract_en": [
+      "This example shows how to turn software repository facts into structured inputs for a graduation thesis DOCX.",
+      "The core idea is to separate repository-derived content from document formatting through a manifest-driven workflow."
+    ],
+    "keywords_cn": [
+      "软件工程",
+      "毕业论文",
+      "DOCX",
+      "自动化"
+    ],
+    "keywords_en": [
+      "software engineering",
+      "graduation thesis",
+      "DOCX",
+      "automation"
+    ],
+    "include_toc": true
+  },
+  "blocks": [
+    {
+      "type": "chapter",
+      "title": "第一章 绪论"
+    },
+    {
+      "type": "section",
+      "title": "1.1 研究背景"
+    },
+    {
+      "type": "paragraph",
+      "text": "本章示例说明如何从真实软件仓库中抽取系统背景、核心问题和研究目标，并将其整理为论文正文。"
+    },
+    {
+      "type": "section",
+      "title": "1.2 方法概览"
+    },
+    {
+      "type": "subsection",
+      "title": "1.2.1 Manifest 驱动的文档生成"
+    },
+    {
+      "type": "paragraph",
+      "text": "推荐先把章节、段落、图表、表格和参考文献整理到 manifest，再交给构建脚本统一输出成 DOCX。"
+    },
+    {
+      "type": "table",
+      "caption": "表1-1 最小示例输入清单",
+      "rows": [
+        [
+          "输入类型",
+          "示例"
+        ],
+        [
+          "章节文本",
+          "结构化段落"
+        ],
+        [
+          "图表资产",
+          "PNG 或 JPEG"
+        ],
+        [
+          "参考文献",
+          "编号列表"
+        ]
+      ]
+    },
+    {
+      "type": "page_break"
+    },
+    {
+      "type": "references",
+      "title": "参考文献",
+      "items": [
+        "[1] Example Author. Example reference for manifest-driven thesis generation[J]. Example Journal, 2026.",
+        "[2] Another Author. Example reference for repository-grounded documentation workflows[J]. Example Systems, 2025."
+      ]
+    }
+  ]
+}
