@@ -9,6 +9,14 @@ This repository focuses on two practical paths:
 
 Chinese documentation: [README.zh-CN.md](README.zh-CN.md)
 
+## Compatibility
+
+- Codex: supported now
+- OpenCode: planned
+- Claude Code: planned
+
+Quick start for Codex: [docs/codex-quickstart.md](docs/codex-quickstart.md)
+
 ## What It Includes
 
 - `SKILL.md`: the reusable Codex skill entrypoint
@@ -37,6 +45,8 @@ python3 -m pip install -r requirements.txt
 ### Use as a Codex skill
 
 Point Codex skill installation to this repository root, or copy this directory into your local skills directory so that `SKILL.md` remains at the root of the installed skill.
+
+For a concrete install and prompt walkthrough, see [docs/codex-quickstart.md](docs/codex-quickstart.md).
 
 ## Scripts
 
@@ -106,6 +116,12 @@ python3 scripts/rewrite_paragraphs.py \
 - The paragraph rewrite tool only handles exact full-paragraph matches
 - Mixed-format, multi-run paragraphs should be inspected before automated edits
 - Institution-specific formatting rules may require manifest or style extensions
+
+## Roadmap
+
+- Add an OpenCode-compatible skill packaging and installation path
+- Add a Claude Code-compatible prompt and repository layout guide
+- Add cross-runtime smoke tests so the same examples can be verified across Codex, OpenCode, and Claude Code
 
 ## License
 

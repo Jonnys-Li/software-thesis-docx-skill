@@ -9,6 +9,14 @@
 
 English documentation: [README.md](README.md)
 
+## 兼容性
+
+- Codex：当前已适配
+- OpenCode：计划中
+- Claude Code：计划中
+
+Codex 快速上手见：[docs/codex-quickstart.zh-CN.md](docs/codex-quickstart.zh-CN.md)
+
 ## 仓库内容
 
 - `SKILL.md`：可直接复用的技能入口
@@ -37,6 +45,8 @@ python3 -m pip install -r requirements.txt
 ### 作为 Codex skill 使用
 
 将本仓库根目录作为 skill 安装源，或者把整个目录复制到本地技能目录中，并保持 `SKILL.md` 位于安装后的技能根目录。
+
+如果你想直接照着操作安装和触发，可以看 [docs/codex-quickstart.zh-CN.md](docs/codex-quickstart.zh-CN.md)。
 
 ## 脚本用法
 
@@ -106,6 +116,12 @@ python3 scripts/rewrite_paragraphs.py \
 - 段落改写脚本只适合“整段全文精确命中”的场景
 - 多 `run`、混合格式、修订痕迹较多的段落需要先人工检查
 - 学校格式要求如果更特殊，通常需要扩展 manifest 或样式逻辑
+
+## 下一步
+
+- 补 OpenCode 兼容的 skill 打包方式和安装说明
+- 补 Claude Code 兼容的提示词约定与仓库接入方式
+- 增加跨运行时 smoke test，保证同一套示例在 Codex、OpenCode、Claude Code 上都可验证
 
 ## 许可证
 
