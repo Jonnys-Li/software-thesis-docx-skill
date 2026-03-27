@@ -32,6 +32,8 @@
     "check_only": true,
     "auto_reduce": false,
     "threshold": 0.58,
-    "target_scope": "generated_content"
+    "target_scope": "generated_content",
+    "rewrite_profile": "academic_safe",
+    "normalize_typography": true
   }
 }

@@ -109,10 +109,14 @@ Recommended sequence:
 
 1. check risk
 2. select only authorized target paragraphs
-3. rewrite with more specific, evidence-linked language
-4. preserve layout if editing an existing `docx`
+3. choose `academic_safe` or `explicit_low_aigc`
+4. rewrite with more specific, evidence-linked language and typography normalization
+5. preserve layout if editing an existing `docx`
 
-See [aigc.md](aigc.md).
+Use `academic_safe` by default.
+Only use `explicit_low_aigc` when the user explicitly asks to lower AIGC.
+
+See [aigc.md](aigc.md) and [low-aigc-playbook.md](low-aigc-playbook.md).
 
 ### 9. Visual QA
 

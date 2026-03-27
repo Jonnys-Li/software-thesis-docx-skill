@@ -21,7 +21,7 @@ This skill is especially useful when the user needs one or more of the following
 - Mermaid code for architecture, flow, sequence, ER, state, schedule, or mind-map diagrams
 - caption-based figure replacement without breaking Word layout
 - citation cleanup or terminology cleanup in an existing `docx`
-- optional AIGC risk review before final delivery
+- optional AIGC risk review or low-AIGC rewrite before final delivery
 
 ## 1. Ground The Repository Or The DOCX
 
@@ -66,6 +66,11 @@ Default values:
 - `subagents.enabled = false`
 - `aigc.enabled = false`
 
+For AIGC:
+
+- keep `rewrite_profile = academic_safe` by default
+- only switch to `explicit_low_aigc` when the user explicitly asks to lower AIGC
+
 If the runtime supports structured input collection such as `request_user_input`, use it.
 If not, ask the same questions in plain conversation.
 
@@ -105,6 +110,7 @@ Supporting references:
 - [references/workflow.md](references/workflow.md)
 - [references/source-conventions.md](references/source-conventions.md)
 - [references/migration-notes.md](references/migration-notes.md)
+- [references/low-aigc-playbook.md](references/low-aigc-playbook.md)
 
 ## 6. Run The Right Script
 
@@ -159,6 +165,18 @@ python3 scripts/check_aigc_risk.py \
   --output /tmp/aigc-risk-report.json
 ```
 
+Rewrite authorized paragraphs for lower AIGC risk:
+
+```bash
+python3 scripts/rewrite_low_aigc_docx.py \
+  --input thesis.docx \
+  --report /tmp/aigc-risk-report.json \
+  --output thesis-low-aigc.docx \
+  --pending-output /tmp/aigc-pending-review.json \
+  --profile academic_safe \
+  --normalize-typography
+```
+
 ## 7. Mermaid Rules
 
 Mermaid generation is an orchestration capability, not a required rendering pipeline.
@@ -204,11 +222,13 @@ Safe behavior:
 
 - scan first
 - rewrite only authorized paragraphs
+- keep `academic_safe` as the default rewrite profile
+- use `explicit_low_aigc` only when the user explicitly asks to lower AIGC
 - prefer more concrete, evidence-linked language
-- reuse `rewrite_paragraphs.py` only for single-run exact-match paragraphs
-- stop for manual confirmation on multi-run or mixed-format paragraphs
+- use `rewrite_low_aigc_docx.py` for authorized single-run paragraphs
+- stop for manual confirmation on multi-run or mixed-format paragraphs and inspect the pending JSON output
 
-Read [references/aigc.md](references/aigc.md) when the user asks for detection or auto-reduction.
+Read [references/aigc.md](references/aigc.md) and [references/low-aigc-playbook.md](references/low-aigc-playbook.md) when the user asks for detection or low-AIGC rewriting.
 
 ## 10. Quality Gates
 

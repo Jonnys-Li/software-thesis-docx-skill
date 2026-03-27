@@ -47,7 +47,7 @@ The important part is that `SKILL.md` stays at the root of the installed skill.
 - custom style preset extraction from `.docx` templates
 - Mermaid planning contracts
 - optional subagent rigorous-writing mode
-- optional AIGC risk checking and conservative reduction workflow
+- optional AIGC risk checking and dual-profile reduction workflow
 
 ## 4. Use The Skill In Codex
 
@@ -63,6 +63,7 @@ Typical prompts:
 - `Use $software-thesis-docx to read my Word template, extract a style preset, and build the thesis in that format.`
 - `Use $software-thesis-docx to generate Mermaid flowchart and sequenceDiagram code for my thesis based on the repo architecture.`
 - `Use $software-thesis-docx to run an AIGC risk review on my thesis DOCX and only rewrite the flagged single-run paragraphs after showing me the report.`
+- `Use $software-thesis-docx to lower AIGC for my thesis, keep academic_safe by default, and only switch to explicit_low_aigc if I explicitly ask for it.`
 
 ## 5. Optional Dependency Step
 
@@ -107,6 +108,18 @@ Run the AIGC risk checker:
 python3 "$HOME/.codex/skills/software-thesis-docx/scripts/check_aigc_risk.py" \
   --input thesis.docx \
   --output /tmp/aigc-risk-report.json
+```
+
+Rewrite authorized paragraphs for lower AIGC risk:
+
+```bash
+python3 "$HOME/.codex/skills/software-thesis-docx/scripts/rewrite_low_aigc_docx.py" \
+  --input thesis.docx \
+  --report /tmp/aigc-risk-report.json \
+  --output /tmp/thesis-low-aigc.docx \
+  --pending-output /tmp/aigc-pending-review.json \
+  --profile academic_safe \
+  --normalize-typography
 ```
 
 Replace images by caption:

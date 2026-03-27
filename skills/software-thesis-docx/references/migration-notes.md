@@ -80,5 +80,6 @@ Expose the smallest stable set of user-facing scripts that covers repeated tasks
 - replace images by caption
 - rewrite exact paragraphs
 - check AIGC risk
+- rewrite authorized paragraphs for lower AIGC risk
 
 Keep higher-level behaviors such as Mermaid authoring and subagent orchestration in the skill instructions and example configs unless repeated usage proves a dedicated script is necessary.

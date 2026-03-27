@@ -29,6 +29,8 @@ If not, fall back to the same questions in plain conversation.
 - `mermaid.enabled = false`
 - `subagents.enabled = false`
 - `aigc.enabled = false`
+- `aigc.rewrite_profile = academic_safe`
+- `aigc.normalize_typography = true`
 
 ## Unified Options Contract
 
@@ -40,6 +42,13 @@ The top-level options object should contain:
 - `aigc`
 
 See [assets/examples/thesis_workflow_options.example.json](../assets/examples/thesis_workflow_options.example.json).
+
+## AIGC Defaults
+
+- Keep AIGC review opt-in.
+- Default to `rewrite_profile = academic_safe`.
+- Only switch to `rewrite_profile = explicit_low_aigc` when the user explicitly asks to lower AIGC.
+- `normalize_typography` should normally stay on for Chinese thesis work.
 
 ## Notes On Subagents
 

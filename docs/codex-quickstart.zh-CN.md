@@ -47,7 +47,7 @@ irm https://raw.githubusercontent.com/Jonnys-Li/software-thesis-docx-skill/main/
 - 从 `.docx` 模板抽取自定义 style preset
 - Mermaid 规划契约
 - 可选的严谨写作 subagent 模式
-- 可选的 AIGC 风险检查与保守降重流程
+- 可选的 AIGC 风险检查与双模式降重流程
 
 ## 4. 在 Codex 中使用
 
@@ -63,6 +63,7 @@ Use $software-thesis-docx to build my thesis DOCX workflow from my software repo
 - `Use $software-thesis-docx to read my Word template, extract a style preset, and build the thesis in that format.`
 - `Use $software-thesis-docx to generate Mermaid flowchart and sequenceDiagram code for my thesis based on the repo architecture.`
 - `Use $software-thesis-docx to run an AIGC risk review on my thesis DOCX and only rewrite the flagged single-run paragraphs after showing me the report.`
+- `Use $software-thesis-docx to lower AIGC for my thesis, keep academic_safe by default, and only switch to explicit_low_aigc if I explicitly ask for it.`
 
 ## 5. 可选依赖安装
 
@@ -107,6 +108,18 @@ python3 "$HOME/.codex/skills/software-thesis-docx/scripts/build_docx_from_manife
 python3 "$HOME/.codex/skills/software-thesis-docx/scripts/check_aigc_risk.py" \
   --input thesis.docx \
   --output /tmp/aigc-risk-report.json
+```
+
+按风险报告回写低 AIGC 版本：
+
+```bash
+python3 "$HOME/.codex/skills/software-thesis-docx/scripts/rewrite_low_aigc_docx.py" \
+  --input thesis.docx \
+  --report /tmp/aigc-risk-report.json \
+  --output /tmp/thesis-low-aigc.docx \
+  --pending-output /tmp/aigc-pending-review.json \
+  --profile academic_safe \
+  --normalize-typography
 ```
 
 按图注替换图片：

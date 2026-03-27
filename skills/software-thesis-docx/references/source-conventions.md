@@ -30,7 +30,8 @@ workspace/
     ├── diagrams/
     │   └── system-overview.mmd
     └── reports/
-        └── aigc-risk-report.json
+        ├── aigc-risk-report.json
+        └── aigc-pending-review.json
 ```
 
 ## Naming Rules
@@ -60,6 +61,7 @@ Use a workflow options file to own:
 - Mermaid requests
 - subagent enablement
 - AIGC check or reduction flags
+- AIGC rewrite profile and typography normalization
 
 Do not scatter these toggles across ad hoc prompts when the task is complex enough to justify a reusable config.
 
