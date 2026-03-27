@@ -53,8 +53,7 @@ else
   exit 1
 fi
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-LOCAL_INSTALL_PY="${SCRIPT_DIR}/install.py"
+LOCAL_INSTALL_PY=""
 TEMP_FILE=""
 
 cleanup() {
@@ -64,7 +63,14 @@ cleanup() {
 }
 trap cleanup EXIT
 
-if [[ -f "${LOCAL_INSTALL_PY}" ]]; then
+if [[ -n "${BASH_SOURCE[0]-}" ]]; then
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd || true)"
+  if [[ -n "${SCRIPT_DIR}" && -f "${SCRIPT_DIR}/install.py" ]]; then
+    LOCAL_INSTALL_PY="${SCRIPT_DIR}/install.py"
+  fi
+fi
+
+if [[ -n "${LOCAL_INSTALL_PY}" ]]; then
   INSTALL_PY="${LOCAL_INSTALL_PY}"
 else
   RAW_URL="https://raw.githubusercontent.com/${OWNER}/${REPO}/${REF}/install.py"
