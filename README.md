@@ -1,13 +1,38 @@
 # software-thesis-docx
 
-An open-source Codex skill and script bundle for turning a software project repository into a thesis-ready DOCX workflow.
-
-This repository focuses on two practical paths:
-
-- `repository -> structured thesis sources -> manifest -> formatted docx`
-- `existing docx -> safe post-processing -> visual QA`
+Build and refine software-thesis DOCX workflows from real project repositories.
 
 Chinese documentation: [README.zh-CN.md](README.zh-CN.md)
+
+## Install In 30 Seconds
+
+### Codex native
+
+```text
+$skill-installer install https://github.com/Jonnys-Li/software-thesis-docx-skill/tree/main/skills/software-thesis-docx
+```
+
+### macOS / Linux
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Jonnys-Li/software-thesis-docx-skill/main/install.sh | bash
+```
+
+### Windows PowerShell
+
+```powershell
+irm https://raw.githubusercontent.com/Jonnys-Li/software-thesis-docx-skill/main/install.ps1 | iex
+```
+
+After installing, restart Codex to pick up new skills.
+
+## Try It
+
+```text
+Use $software-thesis-docx to turn my software project repo into a structured thesis manifest and generate a DOCX.
+Use $software-thesis-docx to replace thesis figures by caption without changing Word layout.
+Use $software-thesis-docx to normalize in-text citations and terminology in an existing DOCX.
+```
 
 ## Compatibility
 
@@ -15,97 +40,50 @@ Chinese documentation: [README.zh-CN.md](README.zh-CN.md)
 - OpenCode: planned
 - Claude Code: planned
 
-Quick start for Codex: [docs/codex-quickstart.md](docs/codex-quickstart.md)
+## What This Repository Ships
 
-## What It Includes
-
-- `SKILL.md`: the reusable Codex skill entrypoint
-- `agents/openai.yaml`: skill metadata
-- `scripts/build_docx_from_manifest.py`: build a thesis DOCX from a manifest
-- `scripts/replace_images_by_caption.py`: replace inline figures by matching captions
-- `scripts/rewrite_paragraphs.py`: rewrite exact-match paragraphs without breaking Word formatting
-- `references/`: methodology, workspace conventions, and migration guidance
-- `assets/examples/`: public example contracts for manifests, image maps, and paragraph rewrites
-
-## Use Cases
-
-- Generate a graduation-thesis DOCX from a real software repository
-- Replace thesis figures without manually reformatting Word
-- Normalize in-text citations or terminology while preserving paragraph styles
-- Extract one-off thesis automation into reusable, parameterized tooling
-
-## Installation
-
-### Python dependencies
-
-```bash
-python3 -m pip install -r requirements.txt
-```
-
-### Use as a Codex skill
-
-Point Codex skill installation to this repository root, or copy this directory into your local skills directory so that `SKILL.md` remains at the root of the installed skill.
-
-For a concrete install and prompt walkthrough, see [docs/codex-quickstart.md](docs/codex-quickstart.md).
-
-## Scripts
-
-Build a new DOCX from a manifest:
-
-```bash
-python3 scripts/build_docx_from_manifest.py \
-  --manifest assets/examples/thesis_manifest.example.json \
-  --output /tmp/example-thesis.docx
-```
-
-Replace images in an existing DOCX by caption:
-
-```bash
-python3 scripts/replace_images_by_caption.py \
-  --input thesis.docx \
-  --output thesis-images-updated.docx \
-  --mapping assets/examples/image_map.example.json
-```
-
-Rewrite exact-match paragraphs in an existing DOCX:
-
-```bash
-python3 scripts/rewrite_paragraphs.py \
-  --input thesis.docx \
-  --output thesis-rewritten.docx \
-  --replacements assets/examples/rewrites.example.json
-```
-
-## Public Contracts
-
-`assets/examples/thesis_manifest.example.json`
-
-- metadata for titles, abstracts, and keywords
-- ordered content blocks: `chapter`, `section`, `subsection`, `paragraph`, `figure`, `table`, `page_break`, `references`
-- figure blocks with `caption`, `path`, `max_width_cm`, `max_height_cm`
-
-`assets/examples/image_map.example.json`
-
-- array items shaped like `{"caption": "...", "image_path": "...", "fit_mode": "original_box|page_width"}`
-
-`assets/examples/rewrites.example.json`
-
-- array items shaped like `{"match_text": "...", "replace_text": "..."}`
+- Root-level distribution files: `README`, release notes, and one-click installers
+- The actual reusable skill at `skills/software-thesis-docx/`
+- Three parameterized DOCX tools for build, figure replacement, and paragraph rewrites
+- Public examples and methodology docs for adapting the workflow to another thesis project
 
 ## Repository Layout
 
 ```text
 .
-├── SKILL.md
-├── agents/
-├── assets/examples/
-├── references/
-└── scripts/
+├── install.py
+├── install.sh
+├── install.ps1
+├── docs/
+└── skills/software-thesis-docx/
 ```
+
+## Core Skill Path
+
+The official Codex install target is:
+
+```text
+https://github.com/Jonnys-Li/software-thesis-docx-skill/tree/main/skills/software-thesis-docx
+```
+
+Inside that folder you will find:
+
+- `SKILL.md`
+- `agents/openai.yaml`
+- `assets/examples/`
+- `references/`
+- `scripts/`
+- `requirements.txt`
+
+## Documentation
+
+- [Codex quick start](docs/codex-quickstart.md)
+- [v0.2.0 release notes](docs/releases/v0.2.0.md)
+- [v0.1.0 release notes](docs/releases/v0.1.0.md)
 
 ## Design Principles
 
-- Ground the thesis in facts from the repository before drafting prose
+- Ground the thesis in repository facts before drafting prose
 - Keep content in structured inputs instead of hardcoding thesis text in Python
 - Prefer caption-based figure replacement over position-based image replacement
 - Prefer exact paragraph rewrites when Word layout fidelity matters
@@ -119,9 +97,9 @@ python3 scripts/rewrite_paragraphs.py \
 
 ## Roadmap
 
-- Add an OpenCode-compatible skill packaging and installation path
+- Add an OpenCode-compatible packaging and installation path
 - Add a Claude Code-compatible prompt and repository layout guide
-- Add cross-runtime smoke tests so the same examples can be verified across Codex, OpenCode, and Claude Code
+- Add cross-runtime smoke tests across Codex, OpenCode, and Claude Code
 
 ## License
 

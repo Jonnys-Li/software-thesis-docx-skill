@@ -2,35 +2,42 @@
 
 This guide shows the fastest way to install and use `software-thesis-docx` inside Codex.
 
-## 1. Clone Into Your Codex Skills Directory
+## 1. Install The Skill
 
-```bash
-mkdir -p "$CODEX_HOME/skills"
-git clone https://github.com/Jonnys-Li/software-thesis-docx-skill.git \
-  "$CODEX_HOME/skills/software-thesis-docx"
+### Official Codex installer
+
+```text
+$skill-installer install https://github.com/Jonnys-Li/software-thesis-docx-skill/tree/main/skills/software-thesis-docx
 ```
 
-If you already cloned the repository elsewhere, you can also copy or symlink it into `$CODEX_HOME/skills/software-thesis-docx`.
-
-## 2. Install Python Dependencies
+### One-click installer for macOS / Linux
 
 ```bash
-python3 -m pip install -r "$CODEX_HOME/skills/software-thesis-docx/requirements.txt"
+curl -fsSL https://raw.githubusercontent.com/Jonnys-Li/software-thesis-docx-skill/main/install.sh | bash
 ```
 
-## 3. Verify The Skill Layout
+### One-click installer for Windows PowerShell
 
-The installed directory should contain:
+```powershell
+irm https://raw.githubusercontent.com/Jonnys-Li/software-thesis-docx-skill/main/install.ps1 | iex
+```
+
+Restart Codex after installation.
+
+## 2. Installed Layout
+
+The installed skill directory should contain:
 
 - `SKILL.md`
 - `agents/openai.yaml`
 - `scripts/`
 - `references/`
 - `assets/examples/`
+- `requirements.txt`
 
 The important part is that `SKILL.md` stays at the root of the installed skill.
 
-## 4. Use The Skill In Codex
+## 3. Use The Skill In Codex
 
 Ask Codex to use the skill explicitly:
 
@@ -44,32 +51,42 @@ Typical prompts:
 - `Use $software-thesis-docx to replace thesis figures by caption without changing Word layout.`
 - `Use $software-thesis-docx to normalize in-text citations and terminology in an existing DOCX.`
 
+## 4. Optional Dependency Step
+
+If your Python environment does not already include the required libraries:
+
+```bash
+python3 -m pip install -r "$HOME/.codex/skills/software-thesis-docx/requirements.txt"
+```
+
+If you use a custom `CODEX_HOME`, replace the path accordingly.
+
 ## 5. Run The Scripts Directly
 
 Build from a manifest:
 
 ```bash
-python3 "$CODEX_HOME/skills/software-thesis-docx/scripts/build_docx_from_manifest.py" \
-  --manifest "$CODEX_HOME/skills/software-thesis-docx/assets/examples/thesis_manifest.example.json" \
+python3 "$HOME/.codex/skills/software-thesis-docx/scripts/build_docx_from_manifest.py" \
+  --manifest "$HOME/.codex/skills/software-thesis-docx/assets/examples/thesis_manifest.example.json" \
   --output /tmp/example-thesis.docx
 ```
 
 Replace images by caption:
 
 ```bash
-python3 "$CODEX_HOME/skills/software-thesis-docx/scripts/replace_images_by_caption.py" \
+python3 "$HOME/.codex/skills/software-thesis-docx/scripts/replace_images_by_caption.py" \
   --input thesis.docx \
   --output thesis-images-updated.docx \
-  --mapping "$CODEX_HOME/skills/software-thesis-docx/assets/examples/image_map.example.json"
+  --mapping "$HOME/.codex/skills/software-thesis-docx/assets/examples/image_map.example.json"
 ```
 
 Rewrite exact-match paragraphs:
 
 ```bash
-python3 "$CODEX_HOME/skills/software-thesis-docx/scripts/rewrite_paragraphs.py" \
+python3 "$HOME/.codex/skills/software-thesis-docx/scripts/rewrite_paragraphs.py" \
   --input thesis.docx \
   --output thesis-rewritten.docx \
-  --replacements "$CODEX_HOME/skills/software-thesis-docx/assets/examples/rewrites.example.json"
+  --replacements "$HOME/.codex/skills/software-thesis-docx/assets/examples/rewrites.example.json"
 ```
 
 ## 6. Current Scope
