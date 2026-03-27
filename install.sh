@@ -63,8 +63,8 @@ cleanup() {
 }
 trap cleanup EXIT
 
-if [[ -n "${BASH_SOURCE[0]-}" ]]; then
-  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd || true)"
+if [[ -n "${BASH_SOURCE:-}" ]]; then
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE}")" 2>/dev/null && pwd || true)"
   if [[ -n "${SCRIPT_DIR}" && -f "${SCRIPT_DIR}/install.py" ]]; then
     LOCAL_INSTALL_PY="${SCRIPT_DIR}/install.py"
   fi
