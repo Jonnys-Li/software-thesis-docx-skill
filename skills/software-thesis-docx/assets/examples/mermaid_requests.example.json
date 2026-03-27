@@ -1,0 +1,48 @@
+{
+  "enabled": true,
+  "output_mode": "files",
+  "requests": [
+    {
+      "name": "system-overview",
+      "diagram_type": "flowchart",
+      "topic": "展示前端、后端、知识库和数据库之间的整体关系",
+      "source_scope": [
+        "frontend",
+        "backend",
+        "database",
+        "retrieval"
+      ],
+      "constraints": [
+        "节点名称保持学术论文风格",
+        "只保留主链路，不展开低层实现细节"
+      ]
+    },
+    {
+      "name": "agent-sequence",
+      "diagram_type": "sequenceDiagram",
+      "topic": "展示用户、编排层、检索层和推荐模块之间的交互顺序",
+      "source_scope": [
+        "agent orchestration",
+        "rag pipeline",
+        "recommendation service"
+      ],
+      "constraints": [
+        "参与者不超过 6 个",
+        "突出检索增强和结果返回步骤"
+      ]
+    },
+    {
+      "name": "domain-er",
+      "diagram_type": "erDiagram",
+      "topic": "展示用户、饮食记录、营养目标和推荐结果之间的数据实体关系",
+      "source_scope": [
+        "database models",
+        "ORM schema"
+      ],
+      "constraints": [
+        "使用名词性实体命名",
+        "只画论文正文中会解释的关系"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "formatting": {
+    "mode": "default_preset"
+  },
+  "mermaid": {
+    "enabled": true,
+    "output_mode": "files",
+    "requests": [
+      {
+        "name": "system-overview",
+        "diagram_type": "flowchart",
+        "topic": "根据项目仓库生成系统总体架构图",
+        "source_scope": [
+          "frontend",
+          "backend",
+          "database"
+        ],
+        "constraints": [
+          "突出系统边界与核心模块",
+          "适合直接转换为论文插图"
+        ]
+      }
+    ]
+  },
+  "subagents": {
+    "enabled": false,
+    "strategy": "rigorous_writing",
+    "max_agents": 3
+  },
+  "aigc": {
+    "enabled": false,
+    "check_only": true,
+    "auto_reduce": false,
+    "threshold": 0.58,
+    "target_scope": "generated_content"
+  }
+}

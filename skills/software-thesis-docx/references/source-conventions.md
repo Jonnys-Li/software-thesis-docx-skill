@@ -11,6 +11,9 @@ workspace/
 │   ├── 02_abstract_en.md
 │   ├── 03_chapter1.md
 │   └── ...
+├── templates/
+│   ├── school-template.docx
+│   └── extracted-style-preset.json
 ├── figures/
 │   ├── 01_system_overview.png
 │   ├── 02_backend_architecture.png
@@ -20,9 +23,14 @@ workspace/
 │   ├── diet-week-view.png
 │   └── ...
 ├── manifest/
-│   └── thesis_manifest.json
+│   ├── thesis_manifest.json
+│   └── thesis_workflow_options.json
 └── output/
-    └── thesis.docx
+    ├── thesis.docx
+    ├── diagrams/
+    │   └── system-overview.mmd
+    └── reports/
+        └── aigc-risk-report.json
 ```
 
 ## Naming Rules
@@ -36,12 +44,24 @@ workspace/
 Use the manifest to own:
 
 - document metadata
+- formatting mode
 - content ordering
 - figure block properties
 - table rows
 - references
 
 Do not put long-form thesis prose into Python source files when it can live in the manifest or upstream text sources.
+
+## Workflow Options Ownership
+
+Use a workflow options file to own:
+
+- formatting mode or template path
+- Mermaid requests
+- subagent enablement
+- AIGC check or reduction flags
+
+Do not scatter these toggles across ad hoc prompts when the task is complex enough to justify a reusable config.
 
 ## Image Mapping Ownership
 
@@ -61,6 +81,18 @@ Use a rewrite file to own:
 - exact paragraph text to replace with
 
 Do not rely on fuzzy substring replacement when format preservation matters.
+
+## Mermaid Request Ownership
+
+Use a Mermaid request file to own:
+
+- diagram name
+- diagram type
+- topic
+- source scope
+- constraints
+
+Do not bury diagram requirements inside a paragraph of natural language if the user wants multiple reusable diagrams.
 
 ## Path Resolution
 

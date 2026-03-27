@@ -30,28 +30,41 @@ irm https://raw.githubusercontent.com/Jonnys-Li/software-thesis-docx-skill/main/
 
 - `SKILL.md`
 - `agents/openai.yaml`
-- `scripts/`
-- `references/`
 - `assets/examples/`
+- `assets/presets/`
+- `references/`
+- `scripts/`
 - `requirements.txt`
 
 关键点是 `SKILL.md` 必须位于安装后的 skill 根目录。
 
-## 3. 在 Codex 中使用
+## 3. 现在支持什么
+
+- 基于 manifest 的论文 DOCX 生成
+- 按图注替换图片
+- 面向格式保真的精确段落改写
+- 内置学术论文编排 preset
+- 从 `.docx` 模板抽取自定义 style preset
+- Mermaid 规划契约
+- 可选的严谨写作 subagent 模式
+- 可选的 AIGC 风险检查与保守降重流程
+
+## 4. 在 Codex 中使用
 
 可以直接这样发起：
 
 ```text
-Use $software-thesis-docx to generate a thesis-ready DOCX workflow from my software project repository.
+Use $software-thesis-docx to build my thesis DOCX workflow from my software repository and ask me whether to use the default preset, Mermaid generation, subagents, and AIGC checks.
 ```
 
 常见提示词示例：
 
-- `Use $software-thesis-docx to turn my project repo into a structured thesis manifest and generate a DOCX.`
-- `Use $software-thesis-docx to replace thesis figures by caption without changing Word layout.`
-- `Use $software-thesis-docx to normalize in-text citations and terminology in an existing DOCX.`
+- `Use $software-thesis-docx to turn my project repo into a structured thesis manifest and generate a DOCX with the built-in preset.`
+- `Use $software-thesis-docx to read my Word template, extract a style preset, and build the thesis in that format.`
+- `Use $software-thesis-docx to generate Mermaid flowchart and sequenceDiagram code for my thesis based on the repo architecture.`
+- `Use $software-thesis-docx to run an AIGC risk review on my thesis DOCX and only rewrite the flagged single-run paragraphs after showing me the report.`
 
-## 4. 可选依赖安装
+## 5. 可选依赖安装
 
 如果当前 Python 环境里还没有所需依赖，可以执行：
 
@@ -61,14 +74,39 @@ python3 -m pip install -r "$HOME/.codex/skills/software-thesis-docx/requirements
 
 如果你设置了自定义 `CODEX_HOME`，把路径替换成对应目录即可。
 
-## 5. 直接运行脚本
+## 6. 直接运行脚本
 
-根据 manifest 构建论文：
+根据示例 manifest 构建论文：
 
 ```bash
 python3 "$HOME/.codex/skills/software-thesis-docx/scripts/build_docx_from_manifest.py" \
   --manifest "$HOME/.codex/skills/software-thesis-docx/assets/examples/thesis_manifest.example.json" \
   --output /tmp/example-thesis.docx
+```
+
+从学校模板抽取 preset：
+
+```bash
+python3 "$HOME/.codex/skills/software-thesis-docx/scripts/extract_docx_style_preset.py" \
+  --input school-template.docx \
+  --output /tmp/style-preset.json
+```
+
+用自定义 preset 构建论文：
+
+```bash
+python3 "$HOME/.codex/skills/software-thesis-docx/scripts/build_docx_from_manifest.py" \
+  --manifest thesis_manifest.json \
+  --style-preset /tmp/style-preset.json \
+  --output /tmp/custom-thesis.docx
+```
+
+运行 AIGC 风险检查：
+
+```bash
+python3 "$HOME/.codex/skills/software-thesis-docx/scripts/check_aigc_risk.py" \
+  --input thesis.docx \
+  --output /tmp/aigc-risk-report.json
 ```
 
 按图注替换图片：
@@ -89,7 +127,17 @@ python3 "$HOME/.codex/skills/software-thesis-docx/scripts/rewrite_paragraphs.py"
   --replacements "$HOME/.codex/skills/software-thesis-docx/assets/examples/rewrites.example.json"
 ```
 
-## 6. 当前范围
+## 7. 高级配置契约
+
+内置示例包括：
+
+- `assets/examples/thesis_manifest.example.json`
+- `assets/examples/thesis_workflow_options.example.json`
+- `assets/examples/mermaid_requests.example.json`
+- `assets/examples/image_map.example.json`
+- `assets/examples/rewrites.example.json`
+
+## 8. 当前范围
 
 这个仓库当前只提供了 Codex 兼容的 skill 布局。
 
@@ -102,5 +150,7 @@ python3 "$HOME/.codex/skills/software-thesis-docx/scripts/rewrite_paragraphs.py"
 ## 排错建议
 
 - 如果 Codex 没识别到 skill，先确认安装路径是否正确，以及 `SKILL.md` 是否在根目录。
+- 如果 builder 结果不对，先检查 manifest 里 `formatting.mode` 是否正确。
+- 如果 preset 抽取效果弱，先确认源 `.docx` 里确实包含你希望复用的语义样式。
 - 如果图片替换失败，先确认图注文字与 DOCX 中的图注完全一致。
 - 如果段落改写失败，先确认目标段落是单 `run` 且全文完全匹配。

@@ -31,6 +31,9 @@
     ],
     "include_toc": true
   },
+  "formatting": {
+    "mode": "default_preset"
+  },
   "blocks": [
     {
       "type": "chapter",

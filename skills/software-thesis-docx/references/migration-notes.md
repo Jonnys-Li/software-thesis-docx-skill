@@ -9,9 +9,11 @@ These notes explain how to convert one-off thesis tooling into reusable open-sou
 Reusable parts:
 
 - paragraph, heading, caption, table, and page-number formatting helpers
+- semantic style extraction from an existing `.docx` template
 - image-fit logic based on page width or existing image box
 - caption-based figure replacement
 - exact paragraph rewrite logic for single-run paragraphs
+- local heuristic review passes such as AIGC risk scanning
 - structural validation and preview checks
 
 ## What To Strip Out
@@ -30,8 +32,19 @@ If a private builder script mixes formatting and final thesis text in one Python
 
 - formatting engine
 - external manifest content
+- optional style preset extraction
 
 The open-source build script should keep the formatting helpers but move all real thesis text out to a manifest.
+
+## Key Refactor: Formatting Templates
+
+If a private thesis workflow depends on a hand-adjusted Word file, extract semantic formatting into a reusable preset instead of publishing the original thesis.
+
+The open-source version should:
+
+- keep the preset JSON
+- keep the extraction script
+- avoid shipping the real thesis template unless redistribution is clearly allowed
 
 ## Key Refactor: Image Replacement
 
@@ -60,10 +73,12 @@ The open-source version must not embed any project-specific wording changes.
 
 ## Recommended Public Surface
 
-Expose only three user-facing scripts:
+Expose the smallest stable set of user-facing scripts that covers repeated tasks:
 
 - build from manifest
+- extract style preset from template docx
 - replace images by caption
 - rewrite exact paragraphs
+- check AIGC risk
 
-Everything else should stay in documentation or example configs unless repeated usage proves another script is necessary.
+Keep higher-level behaviors such as Mermaid authoring and subagent orchestration in the skill instructions and example configs unless repeated usage proves a dedicated script is necessary.

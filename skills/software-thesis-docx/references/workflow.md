@@ -23,7 +23,22 @@ Typical output of this step:
 - chapter candidates for introduction, technical background, requirements, design, implementation, testing, and conclusion
 - a shortlist of code files and diagrams that support each chapter
 
-### 2. Source Material Consolidation
+### 2. Option Intake
+
+For complex tasks, collect workflow options before generating long-form output.
+
+Ask in this order:
+
+- formatting preset choice
+- Mermaid generation choice
+- subagent rigorous-writing mode
+- AIGC check or AIGC check plus reduction
+
+Default to the built-in preset and keep the other three features off unless the user enables them.
+
+See [intake-options.md](intake-options.md).
+
+### 3. Source Material Consolidation
 
 Convert repository facts into thesis source inputs:
 
@@ -35,11 +50,12 @@ Convert repository facts into thesis source inputs:
 
 Prefer structured files over one-off script constants.
 
-### 3. Manifest Authoring
+### 4. Manifest Authoring
 
 Create a manifest that describes:
 
 - thesis metadata
+- formatting mode
 - abstracts and keywords
 - ordered content blocks
 - figure locations and captions
@@ -48,7 +64,22 @@ Create a manifest that describes:
 
 The build script should consume this manifest directly.
 
-### 4. DOCX Build
+### 5. Mermaid Diagram Planning
+
+If the user enables Mermaid, create one or more scoped requests before drafting diagrams.
+
+Use Mermaid for:
+
+- architecture overviews
+- sequence flows
+- entity relationships
+- state transitions
+- project schedules
+- concept maps
+
+See [mermaid.md](mermaid.md).
+
+### 6. DOCX Build
 
 Use `build_docx_from_manifest.py` to render:
 
@@ -61,7 +92,7 @@ Use `build_docx_from_manifest.py` to render:
 
 The builder owns formatting. The manifest owns content.
 
-### 5. Post-Processing Existing DOCX
+### 7. Post-Processing Existing DOCX
 
 Use post-processing only when it is safer than rebuilding:
 
@@ -70,7 +101,20 @@ Use post-processing only when it is safer than rebuilding:
 
 Do not use paragraph rewrite automation for arbitrary fuzzy edits. It is meant for deterministic, layout-preserving changes.
 
-### 6. Visual QA
+### 8. AIGC Risk Review
+
+If the user enables AIGC checks, run `check_aigc_risk.py` after drafts are ready and before broad rewriting.
+
+Recommended sequence:
+
+1. check risk
+2. select only authorized target paragraphs
+3. rewrite with more specific, evidence-linked language
+4. preserve layout if editing an existing `docx`
+
+See [aigc.md](aigc.md).
+
+### 9. Visual QA
 
 Validate after each meaningful document mutation:
 
@@ -110,4 +154,6 @@ Use when the user says things like:
 - The skill does not depend on private thesis assets.
 - Build and post-process scripts expose stable CLI arguments.
 - Example contracts are present and readable.
+- The built-in preset and custom template flow are both documented.
+- Mermaid and AIGC options are documented as opt-in features.
 - The output `docx` can be re-opened by `python-docx`.
